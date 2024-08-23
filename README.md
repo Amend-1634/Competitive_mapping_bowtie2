@@ -25,11 +25,13 @@ The script called `run`:
 
 **Input**
 
-`--fasta_info`: Specify the path to the fasta information file with the first column as the path to the fasta file and the second column as their name (reference ID).
+`--fasta_info`: Specify the path to the fasta information file with the first column as the path to the fasta file and the second column as their name (reference ID), such as
+/path/to/A.fasta species_A
+/path/to/B.fasta species_B
 
 `--reads`: Provide the reads to be mapped.
 
-`--fasta_index`: Set the directory containing the bowtie2 index of the concatenated fasta file of all fasta files.
+`--fasta_index`: Set the directory containing the bowtie2 index of the concatenated fasta file of all fasta files. It's /path/to/bowtie2_index without the suffix .bt2l
 
 `--threads`: Number of threads to use (e.g., 10 in the example).
 
@@ -39,10 +41,10 @@ The script called `run`:
 
 **Output**
 
-All output are stored in a directory `results/`
+All outputs are stored in a directory `results/`
 
 `${label}_${reads_filename}.mapped_config_from` has 5 columns:
-contig ID, reference ID, Contig length, the number of mapped read-segments, the number of unmapped read-segments.
+contig ID, reference ID, Contig length, the number of mapped read-segments, and the number of unmapped read-segments.
 
 `${label}_${reads_filename}_reads_sum.csv` output 3 columns: 
 - `species`: reference ID
