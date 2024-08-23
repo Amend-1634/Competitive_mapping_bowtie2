@@ -221,18 +221,18 @@ process EXTRACT_BAM_OF_REF_ID {
         script:
         """
 	#extract all contig IDs
-	cut -f 1 $contig_from > contig_IDs
+        cut -f 1 $contig_from > contig_IDs
 
-	#get the reference ID
-	ref_id=\$(cut -f 2 $contig_from | head -1)
+        #get the reference ID
+        ref_id=\$(cut -f 2 $contig_from | head -1)
 
-	#output the header
-	samtools view -H $sorted_bam >> ${label}-\${ref_id}-ext.sam
+        #extract the header according to the contig IDs
+        ext_header_bam.sh $sorted_bam contig_IDs > ${label}-\${ref_id}-ext.sam
 
-	samtools view $sorted_bam | LC_ALL=C fgrep -f contig_IDs >> ${label}-\${ref_id}-ext.sam
+        samtools view $sorted_bam | LC_ALL=C fgrep -w -f contig_IDs >> ${label}-\${ref_id}-ext.sam
 
-	#sam to bam
-	samtools view -S -b ${label}-\${ref_id}-ext.sam > ${label}-\${ref_id}-ext.bam
+        #sam to bam
+        samtools view -S -b ${label}-\${ref_id}-ext.sam > ${label}-\${ref_id}-ext.bam
         """
 }
 
